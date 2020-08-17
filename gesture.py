@@ -82,12 +82,13 @@ while(True):
     cv.imshow('capture',frame)
     frame=cv.cvtColor(frame,cv.COLOR_BGR2GRAY)
     frame=cv.resize(frame,(150,150))
+    frame=frame/255.0
     frame=frame.reshape(1,150,150,1)
     pred=model.predict(frame)
-    if pred[0]>0:
-        print(maping[1])
+    if pred[0]>0.5:
+        print(maping[1],pred[0])
     else:
-        print(maping[0])
+        print(maping[0],pred[0])
     if cv.waitKey(1) & 0xFF == ord('q'):
         break
 vid.release()
